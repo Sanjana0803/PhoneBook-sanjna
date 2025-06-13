@@ -340,6 +340,10 @@ function PhoneBook() {
                             </TableBody> */}
 
                             <TableBody>
+                                {/* <Box>CONTACTS {(contacts.length)}</Box> */}
+                                <Typography variant="h10" sx={{margin:2}}>
+                                   CONTACTS:{contacts.length}
+                                </Typography>
                                 {filterContacts.slice(indexofFirstContact, indexofLastContact).map((contact, index) => (
                                     <TableRow key={index}>
                                         <TableCell>
@@ -356,8 +360,8 @@ function PhoneBook() {
                                         </TableCell>
                                         <TableCell>{contact.phonenumber}</TableCell>
                                         <TableCell>
-                                            <EditIcon onClick={() => handleEdit(index+indexofFirstContact)} />
-                                            <DeleteIcon onClick={() => handleDelete(index+indexofLastContact)} />
+                                            <EditIcon onClick={() => handleEdit(index + indexofFirstContact)} />
+                                            <DeleteIcon onClick={() => handleDelete(index + indexofLastContact)} />
                                             <BookmarkAddTwoToneIcon sx={{
                                                 ":hover": {
                                                     color: '#000000'

@@ -134,6 +134,17 @@ function PhoneBook() {
     };
 
 
+    const handleChange = (e) => {
+        const value = e.target.value;
+
+
+        if (/^\d{0,10}$/.test(value)) {
+            setPhoneNumber(value);
+
+        }
+    };
+
+
 
     const handleDelete = (index) => {
         const updatedContacts = contacts.filter((_, i) => i !== index);
@@ -245,36 +256,50 @@ function PhoneBook() {
                         label='Name'
                         value={name}
                         type='text'
-                        onChange={(e) => setName(e.target.value)}>
+                        onChange={(e) => setName(e.target.value)}
+                        required>
 
                     </TextField>
 
                     <TextField
                         label='Phone Number'
                         value={phonenumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        type='number'>
+                        onChange={handleChange}
+                        type='number'
+                        required
+                    >
                     </TextField>
 
                     <TextField
                         label='Address'
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        type='text'>
+                        type='text'
+                        required>
                     </TextField>
 
                     <TextField
                         // label='Image'
                         onChange={handleImageUpload}
-                        type='file'>
+                        // inputProps={{ multiple: true }}
+                        type='file'
+                        required>
                     </TextField>
+
+
+
 
 
                     <InputLabel>Label</InputLabel>
                     <Select
                         value={label}
                         onChange={(e) => setLabel(e.target.value)}
+
+                        displayEmpty 
+                        inputProps={{ 'aria-label': 'Without label'}}
+                        required
                     >
+                         <MenuItem value=''>Select</MenuItem>
                         <MenuItem value='Work'>Work</MenuItem>
                         <MenuItem value="School">School</MenuItem>
                         <MenuItem value="Friends">Friends</MenuItem>
@@ -305,44 +330,21 @@ function PhoneBook() {
                                     <TableCell><strong>Actions</strong></TableCell>
                                 </TableRow>
                             </TableHead>
-                            {/* <TableBody>
-                                {filterContacts.map((contacts, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>
-                                            <Box sx={{ display: 'flex', textAlign: 'center' }}>
-                                                {
-                                                    contacts.imageUrl && (
-                                                        <Avatar
-                                                            src={contacts.imageUrl}
-                                                            alt='avatar'
-                                                            sx={{ width: 32, height: 32, marginRight: 1 }}
-                                                        />
-                                                    )}
-                                                {contacts.name}
-                                            </Box>
-                                        </TableCell>
-                                        <TableCell>{contacts.phonenumber}</TableCell>
-                                        <TableCell>
-                                            <EditIcon onClick={() => handleEdit(index)} />
-                                            <DeleteIcon onClick={() => handleDelete(index)} />
-                                            <BookmarkAddTwoToneIcon sx={{
-                                                ":hover": {
-                                                    color: '#000000'
-                                                }
-                                            }}>
 
-                                            </BookmarkAddTwoToneIcon>
-
-                                        </TableCell>
-
-                                    </TableRow>
-                                ))}
-                            </TableBody> */}
 
                             <TableBody>
                                 {/* <Box>CONTACTS {(contacts.length)}</Box> */}
-                                <Typography variant="h10" sx={{margin:2}}>
-                                   CONTACTS:{contacts.length}
+                                <Typography variant="h10" sx={{
+                                    margin: 2,
+                                    padding: '8px 16px',
+                                    backgroundColor: '#f0f4f8',
+                                    color: '#333',
+                                    borderRadius: '8px',
+                                    fontWeight: 'bold',
+                                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                                    display: 'inline-block',
+                                }}>
+                                    CONTACTS:{contacts.length}
                                 </Typography>
                                 {filterContacts.slice(indexofFirstContact, indexofLastContact).map((contact, index) => (
                                     <TableRow key={index}>
@@ -361,7 +363,7 @@ function PhoneBook() {
                                         <TableCell>{contact.phonenumber}</TableCell>
                                         <TableCell>
                                             <EditIcon onClick={() => handleEdit(index + indexofFirstContact)} />
-                                            <DeleteIcon onClick={() => handleDelete(index + indexofLastContact)} />
+                                            <DeleteIcon onClick={() => handleDelete(index + indexofFirstContact)} />
                                             <BookmarkAddTwoToneIcon sx={{
                                                 ":hover": {
                                                     color: '#000000'
